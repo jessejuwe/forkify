@@ -1,0 +1,90 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .app {
+    @apply font-ubuntu w-full;
+  }
+
+  .app__whitebg {
+    @apply bg-white;
+  }
+
+  .app__primarybg {
+    @apply bg-primary;
+  }
+
+  .app__container {
+    @apply max-w-full m-0 large:max-w-[120rem] min-h-[117rem] large:my-[4vw] large:mx-auto bg-white rounded-none large:rounded-lg overflow-hidden shadow-lg shadow-grey-dark-one/20 grid grid-rows-alpha grid-cols-alpha;
+
+    grid-template-areas: 'head head' 'list recipe';
+  }
+
+  .heading--2 {
+    @apply text-[2rem] font-bold text-primary uppercase mb-10 text-center;
+  }
+
+  .app__flex {
+    @apply flex justify-center items-center;
+  }
+
+  .app__wrapper {
+    @apply flex-1 w-full flex-col py-2 px-4 big:pt-32;
+  }
+
+  .copyright {
+    @apply w-full pt-8 px-0 pb-0 flex flex-col justify-end items-end font-dm;
+
+    p {
+      @apply uppercase text-gray-300;
+    }
+  }
+
+  .head-text {
+    @apply text-[2rem] small:text-4xl font-extrabold text-center text-gray-200 large:text-[4rem] font-oswald uppercase;
+
+    span {
+      @apply text-switch-sky;
+    }
+  }
+
+  .p-text {
+    @apply text-[0.8rem] text-left text-switch-sky leading-[1.5] large:text-[1.75rem];
+  }
+
+  .bold-text {
+    @apply text-[0.9rem] small:text-base font-extrabold text-gray-200 text-left font-catamaran large:text-[2rem];
+  }
+
+  .app__social {
+    @apply flex justify-end items-center flex-col p-4;
+
+    div {
+      @apply w-10 h-10 rounded-[50%] bg-white my-1 mx-0 border border-solid border-gray-light flex justify-center items-center transition-all duration-300 ease-in-out hover:bg-secondary hover:border-secondary large:w-[70px] large:h-[70px] large:my-2 large:mx-0;
+
+      svg {
+        @apply w-[15px] h-[15px] text-gray hover:text-white large:w-[30px] large:h-[30px];
+      }
+    }
+  }
+
+  .app__navigation {
+    @apply flex justify-center items-center flex-col p-4;
+
+    .app__navigation-dot {
+      @apply w-[10px] h-[10px] rounded-[50%] bg-[#cbcbcb] m-2 transition-colors duration-200 ease-in-out hover:bg-switch-sky large:w-5 large:h-5;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .app__navigation,
+    .app__social {
+      @apply hidden;
+    }
+
+    .copyright {
+      @apply p-8;
+    }
+  }
+}

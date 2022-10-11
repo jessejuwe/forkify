@@ -1,0 +1,15 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .search {
+    .navbar-form-field {
+      @apply relative;
+
+      .error {
+        @apply absolute right-1 bg-red-700 rounded-md p-1 md:p-2 text-white text-xs md:text-sm font-roboto;
+      }
+    }
+  }
+}
