@@ -3,4 +3,15 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
+  .upload {
+    .upload__column {
+      label {
+        /* TODO: required * */
+      }
+
+      .label-error {
+        @apply text-red-700 animate-pulse;
+      }
+    }
+  }
 }

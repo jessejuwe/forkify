@@ -5,6 +5,11 @@
 @import './Home.scss';
 @import '../sass/main.scss';
 
+@import '../components/Buttons/Buttons.scss';
+@import '../components/Card/Card.scss';
+@import '../components/Modal/Modal.scss';
+@import '../components/Spinner/Spinner.scss';
+
 @import '../containers/AddRecipe/AddRecipe.scss';
 @import '../containers/Bookmark/Bookmark.scss';
 @import '../containers/Recipes/Recipes.scss';
@@ -48,7 +53,7 @@
   }
 
   body {
-    @apply font-normal font-catamaran text-grey-dark-one bg-gradient-to-br from-gradient-one to-gradient-two bg-cover bg-no-repeat min-h-alphaHeight;
+    @apply font-normal font-catamaran text-grey-dark-one bg-gradient-to-br from-gradient-one to-gradient-two bg-cover bg-no-repeat /* min-h-alphaHeight */ min-h-screen;
   }
 
   a {

@@ -6,9 +6,9 @@ type Props = { children: React.ReactNode };
 
 const Wrapper: React.FC<Props> = props => {
   return (
-    <div className="app w-full">
+    <div className="app ">
       <Navbar />
-      <main className="app__flex w-full">{props.children}</main>
+      <main className="">{props.children}</main>
       <Footer />
     </div>
   );

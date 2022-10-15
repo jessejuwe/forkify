@@ -1,0 +1,9 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .card {
+    @apply p-4 w-full shadow-md shadow-black/[0.26] rounded-lg bg-white flex flex-row justify-center items-center;
+  }
+}

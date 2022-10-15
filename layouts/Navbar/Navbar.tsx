@@ -1,19 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import Image from 'next/future/image';
+import Link from 'next/link';
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik';
 import { FaSearch, FaEdit, FaBookmark, FaSmile } from 'react-icons/fa';
 
 import { images } from '../../constants';
-import Link from 'next/link';
+import { RecipeContext } from '../../context/recipe-context';
 
 interface MyFormValues {
-  text: string;
+  recipe: string;
 }
 
 type Props = {};
 
 const Navbar: React.FC<Props> = props => {
-  const initialValues: MyFormValues = { text: '' };
+  const ctx = useContext(RecipeContext);
+
+  const initialValues: MyFormValues = { recipe: '' };
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -37,12 +40,14 @@ const Navbar: React.FC<Props> = props => {
         validate={values => {
           const errors: FormikErrors<MyFormValues> = {};
 
-          if (!values.text) errors.text = 'Required';
+          // if (!values.recipe) errors.recipe = 'Required';
 
           return errors;
         }}
         onSubmit={(values, actions) => {
           // TODO
+          console.log(ctx);
+          ctx?.searchQuery(values.recipe); // triggers a function in the context
 
           actions.setSubmitting(false);
           actions.resetForm();
@@ -53,20 +58,20 @@ const Navbar: React.FC<Props> = props => {
             <div className="navbar-form-field app__flex">
               <Field
                 type="text"
-                name="text"
+                name="recipe"
                 placeholder="Search over 1,000,000 recipes..."
                 className="search__field"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.text}
+                value={values.recipe}
                 innerRef={inputRef}
               />
-              <ErrorMessage name="text" component="div" className="error" />
+              <ErrorMessage name="recipe" component="div" className="error" />
             </div>
 
             <button
               type="submit"
-              onClick={() => {}}
+              onClick={() => ctx?.searchQuery(values.recipe)}
               disabled={isSubmitting}
               className="btn search__btn"
             >

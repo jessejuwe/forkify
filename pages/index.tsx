@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <main className="app__container">
+      <main className="">
         <Recipes />
       </main>
     </div>

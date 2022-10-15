@@ -3,7 +3,6 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
-  .app__recipe {
-    @apply flex flex-row justify-between items-center;
+  .button {
   }
 }

@@ -15,7 +15,7 @@ const NewRecipe: NextPage = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <main className="container">
+      <main className="reg__container">
         <AddRecipe />
       </main>
     </div>

@@ -4,7 +4,7 @@
 
 @layer components {
   .header {
-    @apply p-8 bg-grey-light-one flex items-center justify-between;
+    @apply p-4 mb-4 bg-grey-light-one flex items-center justify-between;
     grid-area: head;
 
     &__logo {
@@ -49,7 +49,7 @@
   }
 
   .bookmarks {
-    @apply py-4 px-0 absolute -right-10 z-10 w-[40rem] bg-white shadow-lg shadow-grey-dark-one/10 invisible opacity-0 transition-all duration-500;
+    @apply py-4 px-0 absolute -right-10 top-[73px] z-10 w-[40rem] bg-white shadow-lg shadow-grey-dark-one/10 invisible opacity-0 transition-all duration-500;
 
     &__list {
       @apply list-none;

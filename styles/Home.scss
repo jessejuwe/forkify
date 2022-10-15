@@ -21,6 +21,10 @@
     grid-template-areas: 'head head' 'list recipe';
   }
 
+  .reg__container {
+    @apply max-w-full m-0 large:max-w-[120rem] large:mx-auto bg-white rounded-none large:rounded-lg shadow-lg shadow-grey-dark-one/20;
+  }
+
   .heading--2 {
     @apply text-[2rem] font-bold text-primary uppercase mb-10 text-center;
   }
@@ -34,7 +38,7 @@
   }
 
   .copyright {
-    @apply w-full pt-8 px-0 pb-0 flex flex-col justify-end items-end font-dm;
+    @apply w-full pt-8 px-0 pb-0 flex flex-col justify-end items-end;
 
     p {
       @apply uppercase text-gray-300;
