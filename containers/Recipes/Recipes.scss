@@ -4,6 +4,10 @@
 
 @layer components {
   .app__recipe {
-    @apply flex flex-row justify-between items-center;
+    @apply flex flex-row justify-between items-start;
+  }
+
+  .app__align {
+    @apply pt-[7.5rem] px-32 pb-14 justify-evenly;
   }
 }

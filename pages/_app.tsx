@@ -6,11 +6,11 @@ import { Wrapper } from '../exports/exports';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Wrapper>
-      <ContextProvider>
+    <ContextProvider>
+      <Wrapper>
         <Component {...pageProps} />
-      </ContextProvider>
-    </Wrapper>
+      </Wrapper>
+    </ContextProvider>
   );
 }
 

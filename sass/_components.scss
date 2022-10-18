@@ -3,14 +3,12 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
-  %btn {
+  .btns {
     @apply bg-gradient-to-br from-gradient-one to-gradient-two rounded-[10rem] border-none uppercase text-white cursor-pointer flex items-center transition-all duration-200 hover:scale-[1.05] focus:outline-none first:mr-4;
   }
 
   .btn {
-    @extend %btn;
-    @apply bg-gradient-to-br from-gradient-one to-gradient-two rounded-[10rem] border-none uppercase text-white cursor-pointer flex items-center transition-all duration-200 hover:scale-[1.05] focus:outline-none first:mr-4;
-    @apply py-6 px-16 text-2xl font-semibold;
+    @apply btns py-6 px-16 text-2xl font-semibold;
 
     svg {
       @apply h-9 w-9 fill-current;
@@ -21,8 +19,7 @@
     &,
     &:link,
     &:visited {
-      @extend %btn;
-      @apply text-[1.4rem] font-semibold py-5 px-9 no-underline;
+      @apply btns text-[1.4rem] font-semibold py-5 px-9 no-underline;
 
       svg {
         @apply h-7 w-7 fill-current;

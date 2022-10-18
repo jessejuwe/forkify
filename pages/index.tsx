@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <main className="">
+      <main className="reg__container">
         <Recipes />
       </main>
     </div>

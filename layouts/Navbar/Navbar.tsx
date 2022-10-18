@@ -46,7 +46,6 @@ const Navbar: React.FC<Props> = props => {
         }}
         onSubmit={(values, actions) => {
           // TODO
-          console.log(ctx);
           ctx?.searchQuery(values.recipe); // triggers a function in the context
 
           actions.setSubmitting(false);

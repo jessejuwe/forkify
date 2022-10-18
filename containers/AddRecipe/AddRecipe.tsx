@@ -91,6 +91,8 @@ const AddRecipe: React.FC<Props> = props => {
               // prettier-ignore
               if (values.ingredient_6 !== '') ingredients.push(values.ingredient_6);
 
+              console.log(ingredients);
+
               const newRecipe = {
                 id: `${Math.floor(Math.random() * 10000)}`,
                 title: values.title,

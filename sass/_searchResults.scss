@@ -1,42 +1,40 @@
-.search-results {
-  padding: 3rem 0;
-  display: flex;
-  flex-direction: column;
-}
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-.results {
-  list-style: none;
-  margin-bottom: 2rem;
-}
-
-.pagination {
-  margin-top: auto;
-  padding: 0 3.5rem;
-
-  &::after {
-    content: '';
-    display: table;
-    clear: both;
+@layer components {
+  .search-results {
+    @apply py-12 px-0 flex flex-col max-w-[300px] min-w-[300px];
   }
 
-  &__btn {
-    &--prev {
-      float: left;
+  .results {
+    @apply list-none mb-8;
+  }
+
+  .pagination {
+    @apply mt-auto py-0 px-4;
+
+    &::after {
+      @apply table clear-both;
+      content: '';
     }
-    &--next {
-      float: right;
+
+    &__btn {
+      &--prev {
+        @apply float-left;
+      }
+      &--next {
+        @apply float-right;
+      }
     }
   }
-}
 
-.copyright {
-  color: $color-grey-dark-2;
-  font-size: 1.2rem;
-  padding: 0 3.5rem;
-  margin-top: 4rem;
+  .copyright {
+    @apply text-grey-dark-two text-xl py-0 px-14 mt-16 uppercase;
 
-  .twitter-link:link,
-  .twitter-link:visited {
-    color: $color-grey-dark-2;
+    .twitter-link:link,
+    .twitter-link:visited {
+      @apply text-grey-dark-two;
+    }
   }
 }

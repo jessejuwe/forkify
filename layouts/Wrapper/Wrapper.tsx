@@ -6,7 +6,7 @@ type Props = { children: React.ReactNode };
 
 const Wrapper: React.FC<Props> = props => {
   return (
-    <div className="app ">
+    <div className="">
       <Navbar />
       <main className="">{props.children}</main>
       <Footer />

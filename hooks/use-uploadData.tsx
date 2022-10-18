@@ -26,10 +26,10 @@ const useUploadData = () => {
       const response = await fetch(requestConfig.url, postMethod);
 
       if (!response.ok) throw new Error('Send request failed!');
+      setIsLoading(false);
     } catch (err: any) {
       setError(err.message || 'Something went wrong!');
     }
-    setIsLoading(false);
   }, []);
 
   return { isLoading, error, sendRequest };

@@ -1,170 +1,137 @@
-.recipe {
-  background-color: $color-grey-light-1;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-  &__fig {
-    height: 32rem;
-    position: relative;
-    transform-origin: top;
+@layer components {
+  .recipe {
+    @apply bg-grey-light-one;
 
-    &::before {
-      content: '';
-      display: block;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-image: linear-gradient(
-        to right bottom,
-        $color-grad-1,
-        $color-grad-2
-      );
-      opacity: 0.6;
-    }
-  }
+    &__fig {
+      @apply h-[32rem] relative origin-top;
 
-  &__img {
-    width: 100%;
-    display: block;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__title {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 20%) skewY(-6deg);
-    color: #fff;
-    font-weight: 700;
-    font-size: 3.25rem;
-    text-transform: uppercase;
-    width: 50%;
-    line-height: 1.95;
-    text-align: center;
-
-    span {
-      -webkit-box-decoration-break: clone;
-      box-decoration-break: clone;
-      padding: 1.3rem 2rem;
-      background-image: linear-gradient(
-        to right bottom,
-        $color-grad-1,
-        $color-grad-2
-      );
+      &::before {
+        content: '';
+        @apply block h-full w-full absolute top-0 left-0 bg-gradient-to-br from-gradient-one to-gradient-two opacity-60;
+      }
     }
 
-    @media only screen and (max-width: $bp-medium) {
-      width: 70%;
+    &__img {
+      @apply w-full h-full block object-cover;
     }
-  }
 
-  &__details {
-    display: flex;
-    align-items: center;
-    padding: 7.5rem 8rem 3.5rem 8rem;
-  }
+    &__title {
+      @apply absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[20%] -skew-y-6 text-white font-bold text-[3.25rem] uppercase w-[70%] medium:w-1/2 leading-[1.95] text-center;
 
-  &__info {
-    font-size: 1.65rem;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-
-    &:not(:last-child) {
-      margin-right: 4.5rem;
+      span {
+        @apply box-decoration-clone py-[1.3rem] px-8 bg-gradient-to-br from-gradient-one to-gradient-two;
+      }
     }
-  }
 
-  &__info-icon {
-    height: 2.35rem;
-    width: 2.35rem;
-    fill: $color-primary;
-    margin-right: 1.15rem;
-  }
+    &__details {
+      @apply flex items-center;
+    }
 
-  &__info-data {
-    margin-right: 0.5rem;
-    font-weight: 700;
-  }
+    &__info {
+      font-size: 1.65rem;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
 
-  &__info-buttons {
-    display: flex;
-    margin-left: 1.6rem;
-    transform: translateY(-1px);
-  }
+      &:not(:last-child) {
+        margin-right: 4.5rem;
+      }
+    }
 
-  &__user-generated {
-    background-color: darken($color-grey-light-2, 2%);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 4rem;
-    width: 4rem;
-    border-radius: 10rem;
-
-    margin-left: auto;
-    margin-right: 1.75rem;
-
-    svg {
-      height: 2.25rem;
-      width: 2.25rem;
+    &__info-icon {
+      height: 2.35rem;
+      width: 2.35rem;
       fill: $color-primary;
+      margin-right: 1.15rem;
     }
-  }
 
-  &__ingredients {
-    padding: 5rem 8rem;
-    font-size: 1.6rem;
-    line-height: 1.4;
-    background-color: $color-grey-light-2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    &__info-data {
+      margin-right: 0.5rem;
+      font-weight: 700;
+    }
 
-  &__ingredient-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem 3rem;
-    list-style: none;
-  }
+    &__info-buttons {
+      display: flex;
+      margin-left: 1.6rem;
+      transform: translateY(-1px);
+    }
 
-  &__ingredient {
-    display: flex;
-  }
+    &__user-generated {
+      background-color: darken($color-grey-light-2, 2%);
 
-  &__icon {
-    height: 2rem;
-    width: 2rem;
-    fill: $color-primary;
-    margin-right: 1.1rem;
-    flex: 0 0 auto;
-    margin-top: 0.1rem;
-  }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 4rem;
+      width: 4rem;
+      border-radius: 10rem;
 
-  &__quantity {
-    margin-right: 0.5rem;
-    flex: 0 0 auto;
-  }
+      margin-left: auto;
+      margin-right: 1.75rem;
 
-  &__directions {
-    padding: 5rem 10rem;
-    padding-bottom: 5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+      svg {
+        height: 2.25rem;
+        width: 2.25rem;
+        fill: $color-primary;
+      }
+    }
 
-  &__directions-text {
-    font-size: 1.7rem;
-    text-align: center;
-    margin-bottom: 3.5rem;
-    color: $color-grey-dark-2;
-  }
+    &__ingredients {
+      padding: 5rem 8rem;
+      font-size: 1.6rem;
+      line-height: 1.4;
+      background-color: $color-grey-light-2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  &__publisher {
-    font-weight: 700;
+    &__ingredient-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 3rem;
+      list-style: none;
+    }
+
+    &__ingredient {
+      display: flex;
+    }
+
+    &__icon {
+      height: 2rem;
+      width: 2rem;
+      fill: $color-primary;
+      margin-right: 1.1rem;
+      flex: 0 0 auto;
+      margin-top: 0.1rem;
+    }
+
+    &__quantity {
+      margin-right: 0.5rem;
+      flex: 0 0 auto;
+    }
+
+    &__directions {
+      padding: 5rem 10rem;
+      padding-bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__directions-text {
+      font-size: 1.7rem;
+      text-align: center;
+      margin-bottom: 3.5rem;
+      color: $color-grey-dark-2;
+    }
+
+    &__publisher {
+      font-weight: 700;
+    }
   }
 }
