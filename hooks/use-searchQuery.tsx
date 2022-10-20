@@ -1,7 +1,5 @@
 import { useState, useCallback } from 'react';
 
-import Recipe from '../model/Recipe';
-
 const useSearchQuery = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<null | string>(null);
@@ -21,6 +19,7 @@ const useSearchQuery = () => {
 
       return data;
     } catch (err: any) {
+      setIsLoading(false);
       setError(err.message || 'Something went wrong!');
     }
   }, []);

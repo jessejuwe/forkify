@@ -3,6 +3,7 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
-  .button {
+  .button-style {
+    @apply btn--small;
   }
 }

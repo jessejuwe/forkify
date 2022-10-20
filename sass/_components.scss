@@ -28,7 +28,7 @@
   }
 
   .btn--inline {
-    @apply text-primary text-[1.3rem] font-semibold border-none bg-grey-light-one py-[0.8rem] px-[1.2rem] rounded-lg cursor-pointer flex items-center transition-all duration-200 hover:text-gradient-two hover:bg-grey-light-two focus:outline-none;
+    @apply text-primary text-[1.3rem] font-semibold border-none bg-grey-light-two py-[0.8rem] px-[1.2rem] rounded-lg cursor-pointer flex items-center transition-all duration-200 hover:text-gradient-two hover:bg-grey-light-three focus:outline-none;
 
     svg {
       @apply h-[1.6rem] w-[1.6rem] fill-current my-0 mx-[0.2rem];
@@ -65,7 +65,7 @@
   }
 
   .spinner {
-    @apply my-20 mx-auto text-center;
+    @apply my-20 mx-auto text-center flex items-center justify-center;
 
     svg {
       @apply h-24 w-24 fill-primary animate-spin;

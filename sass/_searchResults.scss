@@ -15,8 +15,7 @@
     @apply mt-auto py-0 px-4;
 
     &::after {
-      @apply table clear-both;
-      content: '';
+      @apply table clear-both content-[''];
     }
 
     &__btn {

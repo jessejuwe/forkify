@@ -8,7 +8,7 @@
     /* grid-area: head; */
 
     &__logo {
-      @apply ml-16 h-[4.6rem] block;
+      @apply ml-16 h-[4.6rem] block hover:cursor-pointer;
     }
   }
 

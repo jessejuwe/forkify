@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import Fraction from 'fraction.js';
 import Image from 'next/future/image';
 import { motion } from 'framer-motion';
@@ -13,7 +13,6 @@ import {
   FaCheck,
   FaArrowRight,
 } from 'react-icons/fa';
-// import icons from 'url:../../assets/icons.svg';
 
 import { RecipeContext } from '../../context/recipe-context';
 import Spinner from '../../components/Spinner/Spinner';
@@ -23,9 +22,40 @@ type Props = {};
 const RecipeFormat = (props: Props) => {
   const ctx = useContext(RecipeContext);
 
+  const updateHandler = useCallback(
+    (event: React.ChangeEvent<any>) => {
+      event.preventDefault();
+
+      const btn = event.target.closest('.btn--update-servings');
+
+      // Guard Clause
+      if (!btn) return;
+
+      const { updateTo } = btn.dataset;
+
+      if (+updateTo > 0) ctx.updateServings(+updateTo);
+    },
+    [ctx]
+  );
+
+  const addBookmarkHandler = useCallback(
+    (event: React.ChangeEvent<any>) => {
+      event.preventDefault();
+
+      const btn = event.target.closest('.btn--bookmark');
+
+      // Guard Clause
+      if (!btn) return;
+
+      // short-circuiting
+      ctx.recipe && ctx.addBookmark(ctx.recipe);
+    },
+    [ctx]
+  );
+
   return (
     <div className="recipe">
-      {!ctx.recipe && (
+      {!ctx.recipe && ctx.search.results.length == 0 && !ctx.queryLoading && (
         <div className="message">
           <div>
             <FaSmile />
@@ -34,10 +64,23 @@ const RecipeFormat = (props: Props) => {
         </div>
       )}
 
-      {ctx.queryLoading && <Spinner />}
+      {ctx.queryLoading && ctx.search.results.length > 0 && (
+        <div className="">
+          <Spinner />
+        </div>
+      )}
 
       {ctx.recipe && !ctx.queryLoading && (
-        <>
+        <motion.div
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ x: [100, 0], opacity: [0, 1] }}
+          transition={{
+            type: 'tween',
+            duration: 1,
+            ease: 'easeInOut',
+            delayChildren: 0.5,
+          }}
+        >
           <figure className="recipe__fig">
             <Image
               src={ctx.recipe.image}
@@ -76,18 +119,16 @@ const RecipeFormat = (props: Props) => {
                 {ctx.recipe.servings === 1 ? 'serving' : 'servings'}
               </span>
 
-              <div className="recipe__info-buttons">
+              <div className="recipe__info-buttons" onClick={updateHandler}>
                 <button
                   className="btn--tiny btn--update-servings"
                   data-update-to={ctx.recipe.servings - 1}
-                  onClick={() => ctx.updateServings(-1)}
                 >
                   <FaMinusCircle href={`#icon-minus-circle`} />
                 </button>
                 <button
                   className="btn--tiny btn--update-servings"
                   data-update-to={ctx.recipe.servings + 1}
-                  onClick={() => ctx.updateServings(-1)}
                 >
                   <FaPlusCircle href={`#icon-plus-circle`} />
                 </button>
@@ -98,7 +139,8 @@ const RecipeFormat = (props: Props) => {
             <div className={`recipe__user-generated ${ctx.recipe.key ? '' : 'hidden'}`}>
             <FaUser />
           </div>
-            <button className="btn--round btn--bookmark">
+            {/* prettier-ignore */}
+            <button className="btn--round btn--bookmark" onClick={addBookmarkHandler}>
               {/* prettier-ignore */}
               <FaBookmark href={`#icon-bookmark${ctx.recipe.bookmarked ? '-fill' : ''}`} />
             </button>
@@ -138,7 +180,7 @@ const RecipeFormat = (props: Props) => {
               Please check out directions at their website.
             </p>
             <a
-              className="btn--small recipe__btn"
+              className="btn--small recipe__btn animate-bounce"
               href={ctx.recipe.sourceUrl}
               target="_blank"
               rel="noreferrer"
@@ -149,10 +191,10 @@ const RecipeFormat = (props: Props) => {
               </div>
             </a>
           </div>
-        </>
+        </motion.div>
       )}
     </div>
   );
 };
 
-export default RecipeFormat;
+export default React.memo(RecipeFormat);

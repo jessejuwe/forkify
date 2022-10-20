@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Image from 'next/future/image';
 import Link from 'next/link';
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik';
@@ -27,13 +27,16 @@ const Navbar: React.FC<Props> = props => {
 
   return (
     <div className="header">
-      <Image
-        src={images.logo}
-        alt="logo"
-        className="header__logo"
-        width={112.59}
-        height={36.8}
-      />
+      <Link href="/">
+        <Image
+          src={images.logo}
+          alt="logo"
+          className="header__logo"
+          width={112.59}
+          height={36.8}
+          onClick={() => ctx.reloadApp()}
+        />
+      </Link>
 
       <Formik
         initialValues={initialValues}

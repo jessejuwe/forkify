@@ -1,7 +1,5 @@
 import { useState, useCallback } from 'react';
 
-import Recipe from '../model/Recipe';
-
 interface Config {
   url: string;
   method: string;
@@ -28,6 +26,7 @@ const useUploadData = () => {
       if (!response.ok) throw new Error('Send request failed!');
       setIsLoading(false);
     } catch (err: any) {
+      setIsLoading(false);
       setError(err.message || 'Something went wrong!');
     }
   }, []);

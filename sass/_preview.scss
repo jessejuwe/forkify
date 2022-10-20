@@ -1,104 +1,55 @@
-.preview {
-  &__link {
-    &:link,
-    &:visited {
-      display: flex;
-      align-items: center;
-      padding: 1.5rem 3.25rem;
-      transition: all 0.3s;
-      border-right: 1px solid #fff;
-      text-decoration: none;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .preview {
+    &__link {
+      @apply hover:bg-grey-light-three -translate-y-[2px];
+
+      &:link,
+      &:visited {
+        @apply flex items-center py-6 px-[3.25rem] transition-all duration-300 border-r-[1px] border-solid border-white no-underline;
+      }
+
+      &--active {
+        @apply bg-grey-light-one;
+      }
     }
 
-    &:hover {
-      background-color: $color-grey-light-1;
-      transform: translateY(-2px);
+    .fig-before {
+      @apply content-[''] block h-full w-full absolute top-0 left-0 bg-gradient-to-br from-gradient-one to-gradient-two opacity-40;
     }
 
-    &--active {
-      background-color: $color-grey-light-1;
-    }
-  }
+    &__fig {
+      @apply flex-grow-0 flex-shrink-0 basis-[5.8rem] rounded-full overflow-hidden h-[5.8rem] mr-8 relative before:fig-before;
+      backface-visibility: hidden;
 
-  &__fig {
-    flex: 0 0 5.8rem;
-    border-radius: 50%;
-    overflow: hidden;
-    height: 5.8rem;
-    margin-right: 2rem;
-    position: relative;
-    backface-visibility: hidden;
-
-    &::before {
-      content: '';
-      display: block;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-image: linear-gradient(
-        to right bottom,
-        $color-grad-1,
-        $color-grad-2
-      );
-      opacity: 0.4;
+      img {
+        @apply block w-full h-full object-cover transition-all duration-300;
+      }
     }
 
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: all 0.3s;
+    &__data {
+      @apply grid w-full grid-cols-beta gap-y-[0.1rem] items-center;
     }
-  }
 
-  &__data {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr 2rem;
-    row-gap: 0.1rem;
-    align-items: center;
-  }
+    &__title {
+      @apply text-[1.45rem] text-primary uppercase font-semibold text-ellipsis max-w-[25rem] whitespace-nowrap overflow-hidden;
+      grid-column: 1/-1;
+    }
 
-  &__title {
-    grid-column: 1/-1;
-    font-size: 1.45rem;
-    color: $color-primary;
-    text-transform: uppercase;
-    font-weight: 600;
+    &__publisher {
+      @apply text-[1.15rem] text-grey-dark-two uppercase font-semibold;
+    }
 
-    text-overflow: ellipsis;
-    max-width: 25rem;
-    white-space: nowrap;
-    overflow: hidden;
-  }
+    &__user-generated {
+      @apply bg-grey-dark-two/[2%] bg-blend-darken flex items-center justify-center h-8 w-8 ml-auto rounded-[10rem] mr-7;
+      background-color: darken(var(--color-grey-light-2), 2%);
 
-  &__publisher {
-    font-size: 1.15rem;
-    color: $color-grey-dark-2;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  &__user-generated {
-    background-color: darken($color-grey-light-2, 2%);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2rem;
-    width: 2rem;
-    border-radius: 10rem;
-
-    margin-left: auto;
-    margin-right: 1.75rem;
-
-    svg {
-      height: 1.2rem;
-      width: 1.2rem;
-      fill: $color-primary;
+      svg {
+        @apply h-[1.2rem] w-[1.2rem] fill-primary;
+      }
     }
   }
 }

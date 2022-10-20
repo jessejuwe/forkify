@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -8,11 +9,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      inset: {
+        alpha: 'calc(50% - 20rem)',
+      },
       gridTemplateRows: {
         alpha: '10rem minmax(100rem, auto)',
       },
       gridTemplateColumns: {
         alpha: '1fr 2fr',
+        beta: '1fr 2rem',
+        '1fr-1fr': '1fr 1fr',
       },
       minHeight: {
         alphaHeight: 'calc(100vh - 2 * 4vw)',

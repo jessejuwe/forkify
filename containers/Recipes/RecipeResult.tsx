@@ -1,35 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import Image from 'next/future/image';
+import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
-import { FaUser, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 
 import { RecipeContext } from '../../context/recipe-context';
 import Spinner from '../../components/Spinner/Spinner';
+import Pagination from '../../components/Pagination/Pagination';
 
 type Props = {};
 
 const RecipeResult = (props: Props) => {
   const ctx = useContext(RecipeContext);
 
+  const router = useRouter(); // programmatic navigation
+
+  const id = router.pathname;
+
+  const loadHandler = (id: string) => {
+    ctx.loadRecipe(id);
+
+    console.log(id);
+  };
+
   return (
     <div className="search-results">
       {ctx.queryLoading && ctx.search.results.length == 0 && <Spinner />}
+
       {ctx.search.results.length > 0 && (
         <ul className="results">
-          {ctx?.search.results.map(result => (
+          {ctx?.search.currentResult.map(result => (
             <motion.li
               key={result.id}
+              initial={{ opacity: 0, x: -100 }}
               whileInView={{ x: [-100, 0], opacity: [0, 1] }}
-              exit={{ x: [0, 20], opacity: [1, 0] }}
               transition={{
                 duration: 1,
                 ease: 'easeInOut',
                 delayChildren: 0.5,
               }}
               className="preview"
-              onClick={() => ctx.loadRecipe(result.id)}
+              onClick={() => loadHandler(result.id)}
             >
-              <a className="preview__link preview__link--active" href="#23456">
+              <a
+                className={`preview__link ${
+                  result.id === id ? 'preview__link--active' : ''
+                } `}
+                href={`#${result.id}`}
+              >
                 <figure className="preview__fig">
                   <Image
                     src={result.image}
@@ -42,7 +60,11 @@ const RecipeResult = (props: Props) => {
                   <h4 className="preview__title">{result.title}</h4>
                   <p className="preview__publisher">{result.publisher}</p>
                   {ctx.recipe?.bookmarked && (
-                    <div className="preview__user-generated">
+                    <div
+                      className={`preview__user-generated ${
+                        result.key ? '' : 'hidden'
+                      }`}
+                    >
                       <FaUser />
                     </div>
                   )}
@@ -53,34 +75,7 @@ const RecipeResult = (props: Props) => {
         </ul>
       )}
 
-      {ctx?.search?.results.length > 0 && (
-        <div className="pagination">
-          <button className="btn--inline pagination__btn--prev">
-            <div className="search__icon flex items-center">
-              <FaArrowLeft />
-              <span>Page 1</span>
-            </div>
-          </button>
-          <button className="btn--inline pagination__btn--next">
-            <div className="search__icon flex items-center">
-              <span>Page 3</span>
-              <FaArrowRight />
-            </div>
-          </button>
-        </div>
-      )}
-
-      {/* <p className="copyright">
-    &copy; Copyright by
-    <a
-      className="twitter-link"
-      target="_blank"
-      rel="noreferrer"
-      href="https://twitter.com/iktheenigma"
-    >
-      Jesse Juwe
-    </a>
-  </p> */}
+      {ctx?.search?.results.length > 0 && <Pagination />}
     </div>
   );
 };

@@ -4,7 +4,7 @@
 
 @layer components {
   .app__recipe {
-    @apply flex flex-row justify-between items-start;
+    @apply flex flex-row justify-center items-start min-h-alphaHeight;
   }
 
   .app__align {
