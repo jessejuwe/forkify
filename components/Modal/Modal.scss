@@ -11,7 +11,7 @@
     @apply flex flex-col items-center justify-center fixed top-[30vh] left-[10%] md:left-alpha w-4/5 md:w-[40rem] z-[100] overflow-hidden bg-white shadow-md shadow-black/[0.26] rounded-lg pb-6;
 
     .modal-header {
-      @apply bg-primary p-8 w-full flex items-center justify-center space-x-4;
+      @apply bg-primary p-8 w-full;
 
       svg {
         @apply h-6 w-6 fill-white;

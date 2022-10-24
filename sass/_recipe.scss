@@ -32,10 +32,6 @@
 
     &__info {
       @apply text-[1.65rem] uppercase flex items-center;
-
-      &:not(:last-child) {
-        @apply mr-[4.5rem];
-      }
     }
 
     &__info-icon {
@@ -51,7 +47,7 @@
     }
 
     &__user-generated {
-      @apply bg-grey-light-two/[2%] bg-blend-darken flex items-center justify-center h-16 w-16 rounded-[10rem] ml-auto mr-7;
+      @apply bg-grey-light-two/[2%] bg-blend-darken flex items-center justify-center h-16 w-16 rounded-[10rem];
       background-color: darken(--color-grey-light-2, 2%);
 
       svg {

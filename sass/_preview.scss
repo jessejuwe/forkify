@@ -5,15 +5,11 @@
 @layer components {
   .preview {
     &__link {
-      @apply hover:bg-grey-light-three -translate-y-[2px];
+      @apply hover:bg-grey-light-two -translate-y-[2px] active:bg-grey-light-two focus:bg-grey-light-two;
 
       &:link,
       &:visited {
         @apply flex items-center py-6 px-[3.25rem] transition-all duration-300 border-r-[1px] border-solid border-white no-underline;
-      }
-
-      &--active {
-        @apply bg-grey-light-one;
       }
     }
 
@@ -44,8 +40,7 @@
     }
 
     &__user-generated {
-      @apply bg-grey-dark-two/[2%] bg-blend-darken flex items-center justify-center h-8 w-8 ml-auto rounded-[10rem] mr-7;
-      background-color: darken(var(--color-grey-light-2), 2%);
+      @apply bg-grey-light-three bg-blend-darken flex items-center justify-center h-8 w-8 ml-auto rounded-[10rem] mr-7;
 
       svg {
         @apply h-[1.2rem] w-[1.2rem] fill-primary;

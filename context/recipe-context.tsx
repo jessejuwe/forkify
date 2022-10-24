@@ -30,7 +30,6 @@ interface RecipeContextObj {
   uploadRecipe: (newRecipe: Recipe) => void;
   addBookmark: (recipe: Recipe) => void;
   deleteBookmark: (id: string) => void;
-  persistBookmarks: () => void;
   getSearchResultsPage: (page: number) => void;
   updateServings: (newServings: number) => void;
   closeModal: () => void;
@@ -59,7 +58,6 @@ export const RecipeContext = React.createContext<RecipeContextObj>({
   uploadRecipe: (newRecipe: Recipe) => {},
   addBookmark: (recipe: Recipe) => {},
   deleteBookmark: (id: string) => {},
-  persistBookmarks: () => {},
   getSearchResultsPage: (page: number) => {},
   updateServings: (newServings: number) => {},
   closeModal: () => {},
@@ -85,6 +83,19 @@ const ContextProvider: React.FC<Props> = props => {
   // destructuring custom Hook
   const { isLoading: uploadLoading, error: uploadError, sendRequest } = useUploadData();
 
+  useEffect(() => {
+    const storage = localStorage.getItem('bookmarks');
+
+    // Guard clause
+    if (!storage) return;
+
+    const bookmarkData: Recipe[] = JSON.parse(storage);
+
+    setBookmarks(bookmarkData);
+
+    return () => {};
+  }, []);
+
   // function for querying the Recipe API
   const searchQuery = async (query: string) => {
     setSearch(initialSearch);
@@ -96,9 +107,9 @@ const ContextProvider: React.FC<Props> = props => {
       // Guard Clause
       if (!data) throw new Error('no recipe found 💥');
 
-      const recipe = data.data.recipes; // array of search queries
+      const recipeData = data.data.recipes; // array of search queries
 
-      const results = recipe.map((rec: any) => {
+      const results = recipeData.map((rec: any) => {
         return {
           id: rec.id,
           title: rec.title,
@@ -117,7 +128,7 @@ const ContextProvider: React.FC<Props> = props => {
       getSearchResultsPage();
     } catch (error: any) {
       setModalError({
-        title: 'Something went wrong',
+        title: '🚫 Something went wrong',
         message: error.message,
       });
     }
@@ -131,31 +142,38 @@ const ContextProvider: React.FC<Props> = props => {
       // Guard Clause
       if (!data) throw new Error('unable to preview recipe 💥');
 
-      const recipe = data.data.recipe; // array of search queries
+      const recipeData = data.data.recipe; // array of search queries
 
       // Data Transformation
       const loadedRecipe: Recipe = {
-        id: recipe.id,
-        title: recipe.title,
-        image: recipe.image_url,
-        publisher: recipe.publisher,
-        sourceUrl: recipe.source_url,
-        servings: recipe.servings,
-        cookingTime: recipe.cooking_time,
-        ingredients: recipe.ingredients,
-        ...(recipe.key && { key: recipe.key }), // conditionally add properties to objects
+        id: recipeData.id,
+        title: recipeData.title,
+        image: recipeData.image_url,
+        publisher: recipeData.publisher,
+        sourceUrl: recipeData.source_url,
+        servings: recipeData.servings,
+        cookingTime: recipeData.cooking_time,
+        ingredients: recipeData.ingredients,
+        bookmarked: false,
+        ...(recipeData.key && { key: recipeData.key }), // conditionally add properties to objects
       };
 
       setRecipe(loadedRecipe);
 
-      // prettier-ignore
-      bookmarks.some(bookmark => bookmark.id === id)
-      ? setRecipe(prevState => prevState && { ...prevState, bookmarked: true })
-      : setRecipe(prevState => prevState && { ...prevState, bookmarked: false });
+      // checking if Recipe is in bookmarks
+      const bookmarked = bookmarks.some(bookmark => bookmark.id === id);
+
+      bookmarked
+        ? setRecipe(
+            prevState => prevState && { ...prevState, bookmarked: true }
+          )
+        : setRecipe(
+            prevState => prevState && { ...prevState, bookmarked: false }
+          );
     } catch (error: any) {
       setRecipe(undefined);
       setModalError({
-        title: 'Something went wrong',
+        title: '🚫 Something went wrong',
         message: error.message,
       });
     }
@@ -196,10 +214,18 @@ const ContextProvider: React.FC<Props> = props => {
         body: JSON.stringify(recipe),
       };
 
-      await sendRequest(requestConfig);
+      const response = await sendRequest(requestConfig);
+
+      // Guard clause
+      if (!response.ok) throw new Error('unable to upload recipe 💥');
+
+      setModalError({
+        title: '✅ Upload Successful',
+        message: 'Recipe Uploaded Successfully',
+      });
     } catch (error: any) {
       setModalError({
-        title: 'Something went wrong',
+        title: '🚫 Something went wrong',
         message: error.message,
       });
     }
@@ -223,30 +249,78 @@ const ContextProvider: React.FC<Props> = props => {
     );
   };
 
-  const addBookmark = (recipe: Recipe) => {};
+  const addBookmark = (recipeInfo: Recipe) => {
+    recipeInfo.bookmarked = true;
+    if (recipeInfo.id === recipe?.id) setRecipe(recipeInfo);
+    console.log(recipe);
 
-  const deleteBookmark = (id: string) => {};
+    // Mark current recipe as bookmarked
+    // if (recipeInfo.id === recipe?.id) {
+    //   setRecipe(prevState => prevState && { ...prevState, bookmarked: true });
+
+    //   console.log(recipe);
+    // }
+
+    const data: Recipe[] = [];
+
+    // prettier-ignore
+    // Check if Recipe is already in bookmarks
+    const bookmarked = bookmarks.some(bookmark => bookmark.id === recipeInfo.id);
+
+    // Guard clause
+    if (bookmarked) {
+      // prettier-ignore
+      setModalError({title: 'Bookmark', message: 'Recipe already bookmarked'});
+      return;
+    }
+
+    // if recipe is not bookmarked
+    !bookmarked && data.push(recipe as Recipe) && setBookmarks(data);
+
+    console.log(data);
+    console.log(bookmarks);
+    console.log('Recipe added to bookmarks');
+
+    persistBookmarks();
+  };
+
+  const deleteBookmark = (id: string) => {
+    console.log('Recipe removed from bookmarks');
+    // Unmark current recipe as bookmarked
+    if (id === recipe?.id)
+      setRecipe(prevState => prevState && { ...prevState, bookmarked: false });
+
+    // Remove recipe from bookmarks
+    const index = bookmarks.findIndex(el => el.id === id);
+
+    setBookmarks(bookmarks.splice(index, 1));
+
+    console.log(bookmarks);
+
+    bookmarks.length === 0 ? removeBookmarks() : persistBookmarks();
+  };
+
+  const removeBookmarks = () => {
+    localStorage.removeItem('bookmarks');
+  };
 
   const persistBookmarks = () => {
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   };
 
-  const getSearchResultsPage = useCallback(
-    (page: number = search.page) => {
-      const start = page > 1 ? (page - 1) * search.resultsPerPage : page;
-      const end = page * search.resultsPerPage;
+  const getSearchResultsPage = (page: number = search.page) => {
+    const start = page > 1 ? (page - 1) * search.resultsPerPage : page;
+    const end = page * search.resultsPerPage;
 
-      setSearch(
-        prevState =>
-          prevState && {
-            ...prevState,
-            page,
-            currentResult: prevState.results.slice(start, end),
-          }
-      );
-    },
-    [search.page, search.resultsPerPage]
-  );
+    setSearch(
+      prevState =>
+        prevState && {
+          ...prevState,
+          page,
+          currentResult: prevState.results.slice(start, end),
+        }
+    );
+  };
 
   const closeModal = () => setModalError(null);
 
@@ -264,7 +338,6 @@ const ContextProvider: React.FC<Props> = props => {
     uploadRecipe,
     addBookmark,
     deleteBookmark,
-    persistBookmarks,
     getSearchResultsPage,
     updateServings,
     closeModal,

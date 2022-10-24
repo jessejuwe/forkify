@@ -6,6 +6,7 @@ import { FaSearch, FaEdit, FaBookmark, FaSmile } from 'react-icons/fa';
 
 import { images } from '../../constants';
 import { RecipeContext } from '../../context/recipe-context';
+import RecipeList from '../../containers/Recipes/RecipeList';
 
 interface MyFormValues {
   recipe: string;
@@ -28,14 +29,16 @@ const Navbar: React.FC<Props> = props => {
   return (
     <div className="header">
       <Link href="/">
-        <Image
-          src={images.logo}
-          alt="logo"
-          className="header__logo"
-          width={112.59}
-          height={36.8}
-          onClick={() => ctx.reloadApp()}
-        />
+        <a href="/">
+          <Image
+            src={images.logo}
+            alt="logo"
+            className="header__logo"
+            width={112.59}
+            height={36.8}
+            onClick={() => ctx.reloadApp()}
+          />
+        </a>
       </Link>
 
       <Formik
@@ -108,10 +111,29 @@ const Navbar: React.FC<Props> = props => {
 
             <div className="bookmarks">
               <ul className="bookmarks__list">
-                <div className="message flex items-center">
-                  <FaSmile />
-                  <p>No bookmarks yet. Find a nice recipe and bookmark it</p>
-                </div>
+                {ctx.bookmarks.length === 0 && (
+                  <div className="message flex items-center">
+                    <FaSmile />
+                    {
+                      <p>
+                        No bookmarks yet. Find a nice recipe and bookmark it
+                      </p>
+                    }
+                  </div>
+                )}
+
+                {ctx.bookmarks.length > 0 &&
+                  ctx.bookmarks.map(bookmark => (
+                    <RecipeList
+                      key={bookmark.id}
+                      id={bookmark.id}
+                      onClick={() => ctx.loadRecipe(bookmark.id)}
+                      image={bookmark.image}
+                      title={bookmark.title}
+                      publisher={bookmark.publisher}
+                      recipeKey={bookmark.key}
+                    />
+                  ))}
               </ul>
             </div>
           </li>

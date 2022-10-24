@@ -15,6 +15,7 @@ import {
 } from 'react-icons/fa';
 
 import { RecipeContext } from '../../context/recipe-context';
+import Recipe from '../../model/Recipe';
 import Spinner from '../../components/Spinner/Spinner';
 
 type Props = {};
@@ -38,7 +39,7 @@ const RecipeFormat = (props: Props) => {
     [ctx]
   );
 
-  const addBookmarkHandler = useCallback(
+  const bookmarkHandler = useCallback(
     (event: React.ChangeEvent<any>) => {
       event.preventDefault();
 
@@ -48,7 +49,9 @@ const RecipeFormat = (props: Props) => {
       if (!btn) return;
 
       // short-circuiting
-      ctx.recipe && ctx.addBookmark(ctx.recipe);
+      ctx.recipe?.bookmarked
+        ? ctx.deleteBookmark(ctx.recipe.id)
+        : ctx.addBookmark(ctx.recipe as Recipe);
     },
     [ctx]
   );
@@ -137,10 +140,10 @@ const RecipeFormat = (props: Props) => {
 
             {/* prettier-ignore */}
             <div className={`recipe__user-generated ${ctx.recipe.key ? '' : 'hidden'}`}>
-            <FaUser />
-          </div>
+              <FaUser />
+            </div>
             {/* prettier-ignore */}
-            <button className="btn--round btn--bookmark" onClick={addBookmarkHandler}>
+            <button className="btn--round btn--bookmark" onClick={bookmarkHandler}>
               {/* prettier-ignore */}
               <FaBookmark href={`#icon-bookmark${ctx.recipe.bookmarked ? '-fill' : ''}`} />
             </button>

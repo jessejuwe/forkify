@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaExclamationTriangle } from 'react-icons/fa';
 
 import Button from '../Buttons/Button';
 
@@ -35,7 +34,6 @@ const ModalOverlay = (props: ModalOverlay) => {
         }}
       >
         <header className="modal-header">
-          <FaExclamationTriangle />
           <h2>{props.title}</h2>
         </header>
 
