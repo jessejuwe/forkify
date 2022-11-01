@@ -59,6 +59,12 @@
     }
   }
 
+  .btn--bookmark {
+    svg {
+      @apply h-10 w-10 fill-red-700 transition-all duration-300 ease-in;
+    }
+  }
+
   .link:link,
   .link:visited {
     @apply text-grey-dark-two;

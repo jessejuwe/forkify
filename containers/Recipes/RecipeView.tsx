@@ -20,7 +20,7 @@ import Spinner from '../../components/Spinner/Spinner';
 
 type Props = {};
 
-const RecipeFormat = (props: Props) => {
+const RecipeView = (props: Props) => {
   const ctx = useContext(RecipeContext);
 
   const updateHandler = useCallback(
@@ -39,22 +39,19 @@ const RecipeFormat = (props: Props) => {
     [ctx]
   );
 
-  const bookmarkHandler = useCallback(
-    (event: React.ChangeEvent<any>) => {
-      event.preventDefault();
+  const bookmarkHandler = (event: React.ChangeEvent<any>) => {
+    event.preventDefault();
 
-      const btn = event.target.closest('.btn--bookmark');
+    const btn = event.target.closest('.btn--round');
 
-      // Guard Clause
-      if (!btn) return;
+    // Guard Clause
+    if (!btn) return;
 
-      // short-circuiting
-      ctx.recipe?.bookmarked
-        ? ctx.deleteBookmark(ctx.recipe.id)
-        : ctx.addBookmark(ctx.recipe as Recipe);
-    },
-    [ctx]
-  );
+    // short-circuiting
+    ctx.recipe?.bookmarked
+      ? ctx.deleteBookmark(ctx.recipe.id)
+      : ctx.addBookmark(ctx.recipe as Recipe);
+  };
 
   return (
     <div className="recipe">
@@ -142,8 +139,13 @@ const RecipeFormat = (props: Props) => {
             <div className={`recipe__user-generated ${ctx.recipe.key ? '' : 'hidden'}`}>
               <FaUser />
             </div>
-            {/* prettier-ignore */}
-            <button className="btn--round btn--bookmark" onClick={bookmarkHandler}>
+
+            <button
+              onClick={bookmarkHandler}
+              className={`btn--round ${
+                ctx.recipe.bookmarked ? 'btn--bookmark' : ''
+              }`}
+            >
               {/* prettier-ignore */}
               <FaBookmark href={`#icon-bookmark${ctx.recipe.bookmarked ? '-fill' : ''}`} />
             </button>
@@ -200,4 +202,4 @@ const RecipeFormat = (props: Props) => {
   );
 };
 
-export default React.memo(RecipeFormat);
+export default RecipeView;

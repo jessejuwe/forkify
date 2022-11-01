@@ -250,17 +250,9 @@ const ContextProvider: React.FC<Props> = props => {
   };
 
   const addBookmark = (recipeInfo: Recipe) => {
+    // Mark current recipe as bookmarked
     recipeInfo.bookmarked = true;
     if (recipeInfo.id === recipe?.id) setRecipe(recipeInfo);
-
-    // Mark current recipe as bookmarked
-    // if (recipeInfo.id === recipe?.id) {
-    //   setRecipe(prevState => prevState && { ...prevState, bookmarked: true });
-
-    //   console.log(recipe);
-    // }
-
-    const data: Recipe[] = [];
 
     // prettier-ignore
     // Check if Recipe is already in bookmarks
@@ -273,30 +265,34 @@ const ContextProvider: React.FC<Props> = props => {
       return;
     }
 
+    const newBookmark: Recipe[] = [...bookmarks, recipeInfo];
+
     // if recipe is not bookmarked
-    !bookmarked && setBookmarks(prevState => [...prevState, recipe as Recipe]);
+    setBookmarks(newBookmark);
+    // !bookmarked && bookmarks.push(recipeInfo);
 
-    // console.log(data);
-    console.log(bookmarks);
-    console.log('Recipe added to bookmarks');
+    // console.log('Recipe added to bookmarks');
 
-    persistBookmarks(bookmarks);
+    persistBookmarks(newBookmark);
   };
 
   const deleteBookmark = (id: string) => {
-    console.log('Recipe removed from bookmarks');
     // Unmark current recipe as bookmarked
     if (id === recipe?.id)
       setRecipe(prevState => prevState && { ...prevState, bookmarked: false });
 
-    // Remove recipe from bookmarks
-    const index = bookmarks.findIndex(el => el.id === id);
+    // Find index of recipe to be removed
+    // const index = bookmarks.findIndex(el => el.id === id);
+    // const removedBookmark: Recipe[] = [...bookmarks].splice(index, 1);
 
-    setBookmarks(bookmarks.splice(index, 1));
+    // Return an array of elements that do not match the id
+    const newBookmark = bookmarks.filter(item => item.id !== id);
 
-    console.log(bookmarks);
+    setBookmarks(newBookmark);
 
-    bookmarks.length === 0 ? removeBookmarks() : persistBookmarks(bookmarks);
+    bookmarks.length === 0 ? removeBookmarks() : persistBookmarks(newBookmark);
+
+    // console.log('Recipe removed from bookmarks');
   };
 
   const removeBookmarks = () => {
