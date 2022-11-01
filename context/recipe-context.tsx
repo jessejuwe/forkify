@@ -252,7 +252,6 @@ const ContextProvider: React.FC<Props> = props => {
   const addBookmark = (recipeInfo: Recipe) => {
     recipeInfo.bookmarked = true;
     if (recipeInfo.id === recipe?.id) setRecipe(recipeInfo);
-    console.log(recipe);
 
     // Mark current recipe as bookmarked
     // if (recipeInfo.id === recipe?.id) {
@@ -275,13 +274,13 @@ const ContextProvider: React.FC<Props> = props => {
     }
 
     // if recipe is not bookmarked
-    !bookmarked && data.push(recipe as Recipe) && setBookmarks(data);
+    !bookmarked && setBookmarks(prevState => [...prevState, recipe as Recipe]);
 
-    console.log(data);
+    // console.log(data);
     console.log(bookmarks);
     console.log('Recipe added to bookmarks');
 
-    persistBookmarks();
+    persistBookmarks(bookmarks);
   };
 
   const deleteBookmark = (id: string) => {
@@ -297,15 +296,15 @@ const ContextProvider: React.FC<Props> = props => {
 
     console.log(bookmarks);
 
-    bookmarks.length === 0 ? removeBookmarks() : persistBookmarks();
+    bookmarks.length === 0 ? removeBookmarks() : persistBookmarks(bookmarks);
   };
 
   const removeBookmarks = () => {
     localStorage.removeItem('bookmarks');
   };
 
-  const persistBookmarks = () => {
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  const persistBookmarks = (data: Recipe[]) => {
+    localStorage.setItem('bookmarks', JSON.stringify(data));
   };
 
   const getSearchResultsPage = (page: number = search.page) => {
