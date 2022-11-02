@@ -21,6 +21,12 @@ interface Search {
   resultsPerPage: number;
 }
 
+interface Ingredients {
+  quantity: number | null;
+  unit: string;
+  description: string;
+}
+
 interface RecipeContextObj {
   recipe: Recipe | undefined;
   search: Search;
@@ -181,37 +187,44 @@ const ContextProvider: React.FC<Props> = props => {
 
   // function for uploading data to the Recipe API
   const uploadRecipe = async (newRecipe: Recipe) => {
-    console.log('uploading...');
+    const ingredients: Ingredients[] = [];
 
-    try {
-      const ingredients = Object.entries(newRecipe)
+    newRecipe &&
+      Object.entries(newRecipe)
         .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
-        .map(ing => {
-          const ingArr = ing[1].split(',').map((el: string) => el.trim());
-          // const ingArr = ing[1].replaceAll(' ', '').split(',');
+        .map((ing: [string, string[]]) => {
+          const ingArr = ing[1].map(ing => ing.replaceAll(' ', '').split(','));
 
-          if (ingArr.length !== 3)
-            throw new Error('Wrong Ingredient Format 💥');
+          // Checking if some ingredients do not match format
+          const ing_format = ingArr.some(ing => ing.length !== 3);
 
-          const [quantity, unit, description] = ingArr;
-          return { quantity: quantity ? +quantity : null, unit, description };
+          if (ing_format) throw new Error('Wrong Ingredient Format 💥');
+
+          ingArr.forEach(ingredient => {
+            const [qty, unit, description] = ingredient;
+
+            const data = { quantity: qty ? +qty : null, unit, description };
+
+            ingredients.push(data);
+          });
         });
 
-      const recipe = {
-        title: newRecipe.title,
-        source_url: newRecipe.sourceUrl,
-        image_url: newRecipe.image,
-        publisher: newRecipe.publisher,
-        cooking_time: +newRecipe.cookingTime,
-        servings: +newRecipe.servings,
-        ingredients,
-      };
+    const uploadRecipe = newRecipe && {
+      title: newRecipe.title,
+      source_url: newRecipe.sourceUrl,
+      image_url: newRecipe.image,
+      publisher: newRecipe.publisher,
+      cooking_time: +newRecipe.cookingTime,
+      servings: +newRecipe.servings,
+      ingredients,
+    };
 
+    try {
       const requestConfig = {
         url: `${API_URL}?key=${KEY}`,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(recipe),
+        body: uploadRecipe && uploadRecipe,
       };
 
       const response = await sendRequest(requestConfig);

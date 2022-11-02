@@ -14,12 +14,12 @@ interface MyFormValues {
   image: string;
   servings: number | string;
   cookingTime: number | string;
-  ingredient_1: string;
-  ingredient_2: string;
-  ingredient_3: string;
-  ingredient_4: string;
-  ingredient_5: string;
-  ingredient_6: string;
+  ing_1: string;
+  ing_2: string;
+  ing_3: string;
+  ing_4: string;
+  ing_5: string;
+  ing_6: string;
 }
 
 type Props = {};
@@ -34,12 +34,12 @@ const AddRecipe: React.FC<Props> = props => {
     image: '',
     servings: '',
     cookingTime: '',
-    ingredient_1: '',
-    ingredient_2: '',
-    ingredient_3: '',
-    ingredient_4: '',
-    ingredient_5: '',
-    ingredient_6: '',
+    ing_1: '',
+    ing_2: '',
+    ing_3: '',
+    ing_4: '',
+    ing_5: '',
+    ing_6: '',
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -80,12 +80,12 @@ const AddRecipe: React.FC<Props> = props => {
                 if (!values.servings) errors.servings = 'Required';
                 if (!values.cookingTime) errors.cookingTime = 'Required';
 
-                if (!values.ingredient_1) errors.ingredient_1 = 'Required';
-                if (!values.ingredient_2) errors.ingredient_2 = 'Required';
-                if (!values.ingredient_3) errors.ingredient_3 = 'Required';
-                if (!values.ingredient_4) errors.ingredient_4 = 'Required';
-                if (!values.ingredient_5) errors.ingredient_5 = 'Required';
-                if (!values.ingredient_6) errors.ingredient_6 = 'Required';
+                if (!values.ing_1) errors.ing_1 = 'Required';
+                if (!values.ing_2) errors.ing_2 = 'Required';
+                if (!values.ing_3) errors.ing_3 = 'Required';
+                if (!values.ing_4) errors.ing_4 = 'Required';
+                if (!values.ing_5) errors.ing_5 = 'Required';
+                if (!values.ing_6) errors.ing_6 = 'Required';
 
                 return errors;
               }}
@@ -94,20 +94,12 @@ const AddRecipe: React.FC<Props> = props => {
 
                 const ingredients: any = [];
 
-                // prettier-ignore
-                if (values.ingredient_1 !== '') ingredients.push(values.ingredient_1);
-                // prettier-ignore
-                if (values.ingredient_2 !== '') ingredients.push(values.ingredient_2);
-                // prettier-ignore
-                if (values.ingredient_3 !== '') ingredients.push(values.ingredient_3);
-                // prettier-ignore
-                if (values.ingredient_4 !== '') ingredients.push(values.ingredient_4);
-                // prettier-ignore
-                if (values.ingredient_5 !== '') ingredients.push(values.ingredient_5);
-                // prettier-ignore
-                if (values.ingredient_6 !== '') ingredients.push(values.ingredient_6);
-
-                console.log(ingredients);
+                if (values.ing_1 !== '') ingredients.push(values.ing_1);
+                if (values.ing_2 !== '') ingredients.push(values.ing_2);
+                if (values.ing_3 !== '') ingredients.push(values.ing_3);
+                if (values.ing_4 !== '') ingredients.push(values.ing_4);
+                if (values.ing_5 !== '') ingredients.push(values.ing_5);
+                if (values.ing_6 !== '') ingredients.push(values.ing_6);
 
                 recipeData = {
                   id: `myrecipe-${Math.floor(Math.random() * 10000)}`,
@@ -131,8 +123,7 @@ const AddRecipe: React.FC<Props> = props => {
                   <div className="upload__column">
                     <h3 className="upload__heading">Recipe Data</h3>
 
-                    {/* prettier-ignore */}
-                    <label htmlFor="title" className={!errors.title ? '' : 'label-error'}>Title</label>
+                    <label htmlFor="title">Title</label>
                     <Field
                       type="text"
                       name="title"
@@ -140,11 +131,11 @@ const AddRecipe: React.FC<Props> = props => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.title}
-                      // innerRef={inputRef}
+                      innerRef={inputRef}
+                      required
                     />
 
-                    {/* prettier-ignore */}
-                    <label htmlFor="sourceUrl" className={!errors.sourceUrl ? '' : 'label-error'}>URL</label>
+                    <label htmlFor="sourceUrl">URL</label>
                     <Field
                       type="text"
                       name="sourceUrl"
@@ -152,10 +143,10 @@ const AddRecipe: React.FC<Props> = props => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.sourceUrl}
+                      required
                     />
 
-                    {/* prettier-ignore */}
-                    <label htmlFor="image" className={!errors.image ? '' : 'label-error'}>Image URL</label>
+                    <label htmlFor="image">Image URL</label>
                     <Field
                       type="text"
                       name="image"
@@ -163,14 +154,10 @@ const AddRecipe: React.FC<Props> = props => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.image}
+                      required
                     />
 
-                    <label
-                      htmlFor="publisher"
-                      className={!errors.publisher ? '' : 'label-error'}
-                    >
-                      Publisher
-                    </label>
+                    <label htmlFor="publisher">Publisher</label>
                     <Field
                       type="text"
                       name="publisher"
@@ -178,14 +165,10 @@ const AddRecipe: React.FC<Props> = props => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.publisher}
+                      required
                     />
 
-                    <label
-                      htmlFor="cookingTime"
-                      className={!errors.cookingTime ? '' : 'label-error'}
-                    >
-                      Prep. Time
-                    </label>
+                    <label htmlFor="cookingTime">Prep. Time</label>
                     <Field
                       type="text"
                       name="cookingTime"
@@ -193,14 +176,10 @@ const AddRecipe: React.FC<Props> = props => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.cookingTime}
+                      required
                     />
 
-                    <label
-                      htmlFor="servings"
-                      className={!errors.servings ? '' : 'label-error'}
-                    >
-                      Servings
-                    </label>
+                    <label htmlFor="servings">Servings</label>
                     <Field
                       type="text"
                       name="servings"
@@ -208,81 +187,75 @@ const AddRecipe: React.FC<Props> = props => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.servings}
+                      required
                     />
                   </div>
 
                   <div className="upload__column">
                     <h3 className="upload__heading">Ingredients</h3>
-                    <label htmlFor="ingredient-1">ING. 1</label>
+                    <label htmlFor="ing_1">ING. 1</label>
                     <Field
                       type="text"
-                      name="ingredient-1"
+                      name="ing_1"
                       placeholder="Format: 'Quantity,Unit,Description'"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.ingredient_1}
-                      required
+                      value={values.ing_1}
                     />
 
-                    <label htmlFor="ingredient-2">ING. 2</label>
+                    <label htmlFor="ing_2">ING. 2</label>
                     <Field
                       type="text"
-                      name="ingredient-2"
+                      name="ing_2"
                       placeholder="Format: 'Quantity,Unit,Description'"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.ingredient_2}
-                      required
+                      value={values.ing_2}
                     />
 
-                    <label htmlFor="ingredient-3">ING. 3</label>
+                    <label htmlFor="ing_3">ING. 3</label>
                     <Field
                       type="text"
-                      name="ingredient-3"
+                      name="ing_3"
                       placeholder="Format: 'Quantity,Unit,Description'"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.ingredient_3}
-                      required
+                      value={values.ing_3}
                     />
 
-                    <label htmlFor="ingredient-4">ING. 4</label>
+                    <label htmlFor="ing_4">ING. 4</label>
                     <Field
                       type="text"
-                      name="ingredient-4"
+                      name="ing_4"
                       placeholder="Format: 'Quantity,Unit,Description'"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.ingredient_4}
-                      required
+                      value={values.ing_4}
                     />
 
-                    <label htmlFor="ingredient-5">ING. 5</label>
+                    <label htmlFor="ing_5">ING. 5</label>
                     <Field
                       type="text"
-                      name="ingredient-5"
+                      name="ing_5"
                       placeholder="Format: 'Quantity,Unit,Description'"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.ingredient_5}
-                      required
+                      value={values.ing_5}
                     />
 
-                    <label htmlFor="ingredient-6">ING. 6</label>
+                    <label htmlFor="ing_6">ING. 6</label>
                     <Field
                       type="text"
-                      name="ingredient-6"
+                      name="ing_6"
                       placeholder="Format: 'Quantity,Unit,Description'"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.ingredient_6}
-                      required
+                      value={values.ing_6}
                     />
                   </div>
 
                   <button
                     type="submit"
-                    onClick={() => uploadHandler(recipeData)}
                     disabled={isSubmitting}
                     className="btn upload__btn"
                   >

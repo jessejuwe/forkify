@@ -4,7 +4,7 @@ interface Config {
   url: string;
   method: string;
   headers: { 'Content-Type': string };
-  body: string;
+  body: any;
 }
 
 const useUploadData = () => {
@@ -14,6 +14,7 @@ const useUploadData = () => {
   const sendRequest = useCallback(async (requestConfig: Config) => {
     setIsLoading(true);
     setError(null);
+
     try {
       const postMethod = {
         method: requestConfig.method,
@@ -25,11 +26,11 @@ const useUploadData = () => {
 
       if (!response.ok) throw new Error('Send request failed!');
 
+      setIsLoading(false);
+
       return response;
 
       const data = await response.json();
-
-      setIsLoading(false);
 
       return data;
     } catch (err: any) {

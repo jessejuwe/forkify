@@ -169,7 +169,7 @@ const RecipeView = (props: Props) => {
                       : ''}
                   </div>
                   <div className="recipe__description">
-                    <span className="recipe__unit">{ing.unit}</span>
+                    <span className="recipe__unit">{ing.unit}</span>{' '}
                     {ing.description}
                   </div>
                 </li>

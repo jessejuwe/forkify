@@ -4,7 +4,11 @@ const nextConfig = {
   swcMinify: true,
   experimental: { images: { allowFutureImage: true } },
   images: {
-    domains: ['forkify-api.herokuapp.com', 'img-global.cpcdn.com'],
+    domains: [
+      'forkify-api.herokuapp.com',
+      'img-global.cpcdn.com',
+      'allnigerianfoods.com',
+    ],
   },
 };
 
