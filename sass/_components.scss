@@ -8,10 +8,10 @@
   }
 
   .btn {
-    @apply btns py-6 px-16 text-2xl font-semibold;
+    @apply btns py-3 lg:py-6 px-3 lg:px-16 text-base lg:text-2xl font-semibold;
 
     svg {
-      @apply h-9 w-9 fill-current;
+      @apply h-5 w-5 lg:h-9 lg:w-9 fill-current;
     }
   }
 
@@ -19,10 +19,10 @@
     &,
     &:link,
     &:visited {
-      @apply btns text-[1.4rem] font-semibold py-5 px-9 no-underline;
+      @apply btns text-lg lg:text-[1.4rem] font-semibold py-3 lg:py-5 px-5 lg:px-9 no-underline;
 
       svg {
-        @apply h-7 w-7 fill-current;
+        @apply h-4 w-4 lg:h-7 lg:w-7 fill-current ml-2;
       }
     }
   }
@@ -40,7 +40,7 @@
   }
 
   .btn--round {
-    @apply flex items-center bg-gradient-to-br from-gradient-one to-gradient-two rounded-[50%] border-none cursor-pointer h-[4.5rem] w-[4.5rem] transition-all duration-200 justify-center hover:scale-[1.07] focus:outline-none;
+    @apply flex items-center bg-gradient-to-br from-gradient-one to-gradient-two rounded-[50%] border-none cursor-pointer h-10 w-10 lg:h-[4.5rem] lg:w-[4.5rem] transition-all duration-200 justify-center hover:scale-[1.07] focus:outline-none;
 
     svg {
       @apply h-10 w-10 fill-white;
@@ -48,7 +48,7 @@
   }
 
   .btn--tiny {
-    @apply h-8 w-8 border-none bg-none cursor-pointer focus:outline-none;
+    @apply h-7 w-7 lg:h-8 lg:w-8 border-none bg-none cursor-pointer focus:outline-none;
 
     svg {
       @apply h-full w-full fill-primary transition-all duration-300 hover:fill-gradient-two translate-y-[-1px] active:fill-gradient-two active:translate-y-0;
@@ -61,7 +61,7 @@
 
   .btn--bookmark {
     svg {
-      @apply h-10 w-10 fill-red-700 transition-all duration-300 ease-in;
+      @apply h-5 w-5 lg:h-10 lg:w-10 fill-red-700 transition-all duration-300 ease-in;
     }
   }
 

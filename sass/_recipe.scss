@@ -11,7 +11,7 @@
     }
 
     &__fig {
-      @apply h-[32rem] relative origin-top before:fig-before;
+      @apply h-[22rem] lg:h-[32rem] relative origin-top before:fig-before;
     }
 
     &__img {
@@ -19,7 +19,7 @@
     }
 
     &__title {
-      @apply absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[20%] -skew-y-6 text-white font-bold text-[3.25rem] uppercase w-[70%] medium:w-1/2 leading-[1.95] text-center;
+      @apply absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[20%] -skew-y-6 text-white font-bold text-3xl medium:text-[3.25rem] uppercase w-[70%] medium:w-1/2 leading-[1.95] text-center;
 
       span {
         @apply box-decoration-clone py-[1.3rem] px-8 bg-gradient-to-br from-gradient-one to-gradient-two;
@@ -31,11 +31,11 @@
     }
 
     &__info {
-      @apply text-[1.65rem] uppercase flex items-center;
+      @apply text-2xl lg:text-[1.65rem] uppercase flex items-center;
     }
 
     &__info-icon {
-      @apply h-[2.35rem] w-[2.35rem] fill-primary mr-[1.15rem];
+      @apply h-6 w-6 lg:h-[2.35rem] lg:w-[2.35rem] fill-primary mr-[1.15rem];
     }
 
     &__info-data {
@@ -47,7 +47,7 @@
     }
 
     &__user-generated {
-      @apply bg-grey-light-two/[2%] bg-blend-darken flex items-center justify-center h-16 w-16 rounded-[10rem];
+      @apply bg-grey-light-two/[2%] bg-blend-darken flex items-center justify-center h-6 w-6 lg:h-16 lg:w-16 rounded-[10rem];
       background-color: darken(--color-grey-light-2, 2%);
 
       svg {
@@ -56,7 +56,7 @@
     }
 
     &__ingredients {
-      @apply py-20 px-32 text-[1.6rem] leading-[1.4] bg-grey-light-two flex-col items-center;
+      @apply py-10 px-8 lg:py-20 lg:px-32 text-xl lg:text-[1.6rem] leading-[1.4] bg-grey-light-two flex-col items-center;
     }
 
     &__ingredient-list {
@@ -64,11 +64,11 @@
     }
 
     &__ingredient {
-      @apply flex;
+      @apply flex justify-start items-center;
     }
 
     &__icon {
-      @apply h-8 w-8 fill-primary mr-[1.1rem] flex-grow-0 flex-shrink-0 basis-auto mt-[0.1rem];
+      @apply h-4 w-4 lg:h-8 lg:w-8 fill-primary mr-[1.1rem] flex-grow-0 flex-shrink-0 basis-auto mt-[0.1rem];
     }
 
     &__quantity {

@@ -8,48 +8,52 @@
     /* grid-area: head; */
 
     &__logo {
-      @apply ml-16 h-[4.6rem] block hover:cursor-pointer;
+      @apply mx-4 lg:mx-16 w-24 lg:w-[initial] h-8 lg:h-[4.6rem] block hover:cursor-pointer;
     }
   }
 
   .search {
-    @apply bg-white rounded-full flex items-center pl-12 transition-all duration-300;
+    @apply bg-white rounded-full flex items-center pl-3 lg:pl-12 transition-all duration-300;
 
     &:focus-within {
       @apply -translate-y-[2px] shadow-lg shadow-grey-dark-one/[0.08];
     }
 
     &__field {
-      @apply border-none bg-none font-[inherit] text-inherit text-[1.7rem] w-auto medium:w-[30rem] focus:outline-none placeholder:text-white medium:placeholder:text-grey-light-three;
+      @apply border-none bg-none font-[inherit] text-inherit text-[1.7rem] w-20 lg:w-40 medium:w-[30rem] focus:outline-none placeholder:text-white medium:placeholder:text-grey-light-three;
     }
 
     &__btn {
       @apply font-semibold font-[inherit];
+
+      span {
+        @apply hidden lg:flex;
+      }
     }
   }
 
   .nav {
-    @apply self-stretch mr-10;
+    @apply self-stretch mr-4 lg:mr-10;
 
     &__list {
       @apply list-none flex h-full;
     }
 
     &__item {
-      @apply relative;
+      @apply relative hover:text-primary;
     }
 
     &__btn {
-      @apply h-full font-[inherit] text-inherit text-[1.4rem] font-bold uppercase bg-none border-none cursor-pointer py-0 px-6 transition-all duration-300 flex items-center;
+      @apply h-full font-[inherit] text-inherit text-base lg:text-[1.4rem] font-bold uppercase bg-none border-none cursor-pointer py-0 px-6 transition-all duration-300 flex items-center;
 
       svg {
-        @apply h-[2.4rem] w-[2.4rem] fill-primary mr-[0.7rem] -translate-y-[1px] focus:outline-none hover:bg-grey-light-two;
+        @apply h-4 w-4 lg:h-[2.4rem] lg:w-[2.4rem] fill-primary mr-[0.7rem] -translate-y-[1px] focus:outline-none hover:bg-grey-light-two;
       }
     }
   }
 
   .bookmarks {
-    @apply py-4 px-0 absolute -right-10 top-[73px] z-10 w-[40rem] bg-white shadow-lg shadow-grey-dark-one/10 invisible opacity-0 transition-all duration-500;
+    @apply py-4 px-0 absolute -right-12 lg:-right-10 top-[38px] lg:top-[73px] z-10 w-[40rem] bg-white shadow-lg shadow-grey-dark-one/10 invisible opacity-0 transition-all duration-500;
 
     &__list {
       @apply list-none;

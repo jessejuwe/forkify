@@ -26,7 +26,7 @@
   }
 
   .heading--2 {
-    @apply text-[2rem] font-bold text-primary uppercase mb-10 text-center;
+    @apply text-2xl lg:text-[2rem] font-bold text-primary uppercase mb-10 text-center;
   }
 
   .app__flex {

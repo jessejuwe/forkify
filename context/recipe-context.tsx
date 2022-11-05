@@ -128,7 +128,7 @@ const ContextProvider: React.FC<Props> = props => {
       const currentResult = results;
 
       const page = 1;
-      const resultsPerPage = RES_PER_PAGE;
+      const resultsPerPage = window.innerWidth < 1024 ? 5 : RES_PER_PAGE;
 
       setSearch({ query, results, currentResult, page, resultsPerPage });
       getSearchResultsPage();
@@ -317,8 +317,10 @@ const ContextProvider: React.FC<Props> = props => {
   };
 
   const getSearchResultsPage = (page: number = search.page) => {
-    const start = page > 1 ? (page - 1) * search.resultsPerPage : page;
-    const end = page * search.resultsPerPage;
+    const resultsPerPage = window.innerWidth < 1024 ? 5 : RES_PER_PAGE;
+
+    const start = page > 1 ? (page - 1) * resultsPerPage : page;
+    const end = page * resultsPerPage;
 
     setSearch(
       prevState =>
