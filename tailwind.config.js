@@ -35,12 +35,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        catamaran: ['Catamaran', 'sans-serif'],
-        mouseMemoirs: ['"Mouse Memoirs"', 'sans-serif'],
-        oswald: ['Oswald', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
-        squarePeg: ['"Square Peg"', 'cursive'],
-        ubuntu: ['Ubuntu', 'sans-serif'],
+        manrope: ['Manrope', 'sans-serif'],
+        openSans: ['"Open Sans"', 'sans-serif'],
       },
       colors: {
         primary: 'rgb(var(--color-primary) / <alpha-value>)',
