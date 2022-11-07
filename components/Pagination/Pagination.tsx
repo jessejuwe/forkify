@@ -75,7 +75,11 @@ const Pagination = (props: Props) => {
       </>
     );
   }
-  
+
+  // adding nested properties as dependencies
+  // so a re-render isn't triggered when a different property is changed
+  const { getSearchResultsPage } = ctx;
+
   const changePageHandler = useCallback(
     (event: any) => {
       event.preventDefault();
@@ -88,9 +92,9 @@ const Pagination = (props: Props) => {
 
       const goToPage = +btn.dataset.goto;
 
-      ctx.getSearchResultsPage(goToPage); // Render NEW results and pagination buttons
+      getSearchResultsPage(goToPage); // Render NEW results and pagination buttons
     },
-    [ctx]
+    [getSearchResultsPage]
   );
 
   return (
