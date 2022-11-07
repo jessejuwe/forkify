@@ -19,6 +19,7 @@ module.exports = {
         alpha: '1fr 2fr',
         beta: '1fr 2rem',
         '1fr-1fr': '1fr 1fr',
+        '1fr-2.8fr': '1fr 2.8fr',
       },
       minHeight: {
         alphaHeight: 'calc(100vh - 2 * 4vw)',
