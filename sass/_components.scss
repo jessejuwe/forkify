@@ -43,7 +43,7 @@
     @apply flex items-center bg-gradient-to-br from-gradient-one to-gradient-two rounded-[50%] border-none cursor-pointer h-10 w-10 lg:h-[4.5rem] lg:w-[4.5rem] transition-all duration-200 justify-center hover:scale-[1.07] focus:outline-none;
 
     svg {
-      @apply h-10 w-10 fill-white;
+      @apply h-5 w-5 lg:h-10 lg:w-10 fill-white;
     }
   }
 
