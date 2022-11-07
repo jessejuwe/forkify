@@ -26,8 +26,10 @@
     &__btn {
       @apply font-semibold font-[inherit];
 
-      span {
-        @apply hidden lg:flex;
+      .search__icon {
+        span {
+          @apply hidden md:inline;
+        }
       }
     }
   }
