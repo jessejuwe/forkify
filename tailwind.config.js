@@ -21,6 +21,9 @@ module.exports = {
         '1fr-1fr': '1fr 1fr',
         '1fr-2.8fr': '1fr 2.8fr',
       },
+      gridColumn: {
+        '1/-1': '1/-1',
+      },
       minHeight: {
         alphaHeight: 'calc(100vh - 2 * 4vw)',
       },
