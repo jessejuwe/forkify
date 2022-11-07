@@ -23,6 +23,10 @@ type Props = {};
 const RecipeView = (props: Props) => {
   const ctx = useContext(RecipeContext);
 
+  // adding nested properties as dependencies
+  // so a re-render isn't triggered when a different property is changed
+  const { updateServings } = ctx;
+
   const updateHandler = useCallback(
     (event: React.ChangeEvent<any>) => {
       event.preventDefault();
@@ -34,9 +38,9 @@ const RecipeView = (props: Props) => {
 
       const { updateTo } = btn.dataset;
 
-      if (+updateTo > 0) ctx.updateServings(+updateTo);
+      if (+updateTo > 0) updateServings(+updateTo);
     },
-    [ctx]
+    [updateServings]
   );
 
   const bookmarkHandler = (event: React.ChangeEvent<any>) => {
