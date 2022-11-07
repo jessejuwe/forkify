@@ -18,12 +18,12 @@
       }
 
       h2 {
-        @apply m-0 text-white text-2xl font-medium text-center uppercase;
+        @apply m-0 text-white text-xl md:text-2xl font-medium text-center uppercase;
       }
     }
 
     .modal-content {
-      @apply p-8 text-4xl font-bold uppercase tracking-wider text-center;
+      @apply p-4 md:p-8 text-2xl md:text-4xl font-bold uppercase tracking-wider text-center;
     }
 
     .actions {
