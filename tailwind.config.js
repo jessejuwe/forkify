@@ -23,6 +23,7 @@ module.exports = {
       },
       gridColumn: {
         '1/-1': '1/-1',
+        '1/span2': '1 / span 2',
       },
       minHeight: {
         alphaHeight: 'calc(100vh - 2 * 4vw)',
