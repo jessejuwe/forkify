@@ -28,7 +28,7 @@
 
       .search__icon {
         span {
-          @apply hidden md:inline;
+          @apply hidden md:visible;
         }
       }
     }
