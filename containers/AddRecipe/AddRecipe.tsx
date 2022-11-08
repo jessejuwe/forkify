@@ -49,14 +49,18 @@ const AddRecipe: React.FC<Props> = props => {
     ctx?.uploadRecipe(newRecipe);
   };
 
+  let i = 0;
   const addIngredient = (values: MyFormValues) => {
     // Guard clause
-    if (!values.ingredients) return;
+    if (!values.ingredients) {
+      alert(`Enter an Ingredient in the right format.`);
+      return;
+    }
 
     ingredients.push(values.ingredients);
-    values.ingredients = '';
+    i++;
 
-    console.log(ingredients);
+    alert(`Ingredient: ${i} has been added.`);
   };
 
   return (
