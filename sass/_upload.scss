@@ -4,7 +4,7 @@
 
 @layer components {
   .add-recipe-window {
-    @apply w-[100rem] bg-grey-light-two rounded-xl py-10 px-10 md:py-20 md:px-24 shadow-lg shadow-black/[0.26] m-8;
+    @apply w-[100rem] bg-grey-light-two rounded-xl py-56 px-10 md:py-5 md:px-24 shadow-lg shadow-black/[0.26] m-2 h-full;
 
     .btn--close-modal {
       @apply font-[inherit] absolute top-2 right-6 text-[3.5rem] cursor-pointer border-none bg-none;
@@ -20,24 +20,28 @@
   }
 
   .upload {
-    @apply flex flex-col items-center justify-start gap-16 md:grid md:grid-cols-1fr-1fr md:gap-y-16 md:gap-x-24;
+    @apply flex flex-col items-center justify-start gap-16;
 
     &__column {
       @apply grid grid-cols-1fr-2.8fr items-center gap-3 md:gap-6;
 
       & h3 {
-        @apply text-end md:text-start text-2xl md:text-4xl font-bold uppercase mb-4 col-1/-1;
+        @apply text-center text-3xl md:text-4xl font-bold uppercase mb-4 col-1/-1 text-primary;
       }
 
       & label {
         @apply text-2xl font-semibold;
       }
 
+      .add__ingredient {
+        @apply w-full flex items-center justify-center space-x-5;
+      }
+
       & input {
         @apply text-2xl py-[0.8rem] px-4 border border-solid border-[#ddd] rounded-lg transition-all duration-200;
 
         &::placeholder {
-          @apply text-grey-light-three;
+          @apply text-grey-light-three text-lg;
         }
 
         &:focus {
@@ -46,7 +50,7 @@
       }
 
       & button {
-        @apply justify-self-center mt-4 col-1/span2;
+        @apply justify-self-center col-1/span2;
       }
     }
 
