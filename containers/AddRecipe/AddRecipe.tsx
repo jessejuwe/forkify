@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useRef } from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik';
-import { FaUpload, FaBackspace } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import { Formik, Form, Field, FormikErrors } from 'formik';
+import { FaUpload } from 'react-icons/fa';
 
 import { RecipeContext } from '../../context/recipe-context';
 import Recipe from '../../model/Recipe';
@@ -14,18 +15,15 @@ interface MyFormValues {
   image: string;
   servings: number | string;
   cookingTime: number | string;
-  ing_1: string;
-  ing_2: string;
-  ing_3: string;
-  ing_4: string;
-  ing_5: string;
-  ing_6: string;
+  ingredients: string;
 }
 
 type Props = {};
 
 const AddRecipe: React.FC<Props> = props => {
   const ctx = useContext(RecipeContext);
+
+  const router = useRouter();
 
   const initialValues: MyFormValues = {
     title: '',
@@ -34,17 +32,13 @@ const AddRecipe: React.FC<Props> = props => {
     image: '',
     servings: '',
     cookingTime: '',
-    ing_1: '',
-    ing_2: '',
-    ing_3: '',
-    ing_4: '',
-    ing_5: '',
-    ing_6: '',
+    ingredients: '',
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   let recipeData: Recipe;
+  const ingredients: any = [];
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -53,6 +47,16 @@ const AddRecipe: React.FC<Props> = props => {
 
   const uploadHandler = (newRecipe: Recipe) => {
     ctx?.uploadRecipe(newRecipe);
+  };
+
+  const addIngredient = (values: MyFormValues) => {
+    // Guard clause
+    if (!values.ingredients) return;
+
+    ingredients.push(values.ingredients);
+    values.ingredients = '';
+
+    console.log(ingredients);
   };
 
   return (
@@ -79,40 +83,32 @@ const AddRecipe: React.FC<Props> = props => {
                 if (!values.image) errors.image = 'Required';
                 if (!values.servings) errors.servings = 'Required';
                 if (!values.cookingTime) errors.cookingTime = 'Required';
-
-                if (!values.ing_1) errors.ing_1 = 'Required';
-                if (!values.ing_2) errors.ing_2 = 'Required';
-                if (!values.ing_3) errors.ing_3 = 'Required';
-                if (!values.ing_4) errors.ing_4 = 'Required';
-                if (!values.ing_5) errors.ing_5 = 'Required';
-                if (!values.ing_6) errors.ing_6 = 'Required';
+                if (!values.ingredients) errors.cookingTime = 'Required';
 
                 return errors;
               }}
               onSubmit={(values, actions) => {
-                // TODO
+                try {
+                  // prettier-ignore
+                  if (ingredients.length === 0) throw new Error('Add an Ingredient 💥');
 
-                const ingredients: any = [];
+                  recipeData = {
+                    id: `myrecipe-${Math.floor(Math.random() * 10000)}`,
+                    title: values.title,
+                    publisher: values.publisher,
+                    sourceUrl: values.sourceUrl,
+                    image: values.image,
+                    servings: +values.servings,
+                    cookingTime: +values.cookingTime,
+                    ingredients,
+                  };
 
-                if (values.ing_1 !== '') ingredients.push(values.ing_1);
-                if (values.ing_2 !== '') ingredients.push(values.ing_2);
-                if (values.ing_3 !== '') ingredients.push(values.ing_3);
-                if (values.ing_4 !== '') ingredients.push(values.ing_4);
-                if (values.ing_5 !== '') ingredients.push(values.ing_5);
-                if (values.ing_6 !== '') ingredients.push(values.ing_6);
+                  uploadHandler(recipeData); // triggers a function in the context
+                } catch (err: any) {
+                  alert(err.message);
+                }
 
-                recipeData = {
-                  id: `myrecipe-${Math.floor(Math.random() * 10000)}`,
-                  title: values.title,
-                  publisher: values.publisher,
-                  sourceUrl: values.sourceUrl,
-                  image: values.image,
-                  servings: +values.servings,
-                  cookingTime: +values.cookingTime,
-                  ingredients,
-                };
-
-                uploadHandler(recipeData); // triggers a function in the context
+                router.push('/');
 
                 actions.setSubmitting(false);
                 actions.resetForm();
@@ -189,9 +185,32 @@ const AddRecipe: React.FC<Props> = props => {
                       value={values.servings}
                       required
                     />
+
+                    <label htmlFor="ingredients">Ingredients</label>
+                    <div className="add__ingredient">
+                      <Field
+                        type="text"
+                        name="ingredients"
+                        id="ing-field"
+                        placeholder="Format: 'Quantity,Unit,Description'"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.ingredients}
+                        required
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => addIngredient(values)}
+                        disabled={isSubmitting}
+                        className="btn--small"
+                      >
+                        <span>Add</span>
+                      </button>
+                    </div>
                   </div>
 
-                  <div className="upload__column">
+                  {/* <div className="upload__column">
                     <h3 className="upload__heading">Ingredients</h3>
                     <label htmlFor="ing_1">ING. 1</label>
                     <Field
@@ -252,7 +271,7 @@ const AddRecipe: React.FC<Props> = props => {
                       onBlur={handleBlur}
                       value={values.ing_6}
                     />
-                  </div>
+                  </div> */}
 
                   <button
                     type="submit"
