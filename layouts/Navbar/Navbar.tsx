@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Image from 'next/future/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik';
 import { FaSearch, FaEdit, FaBookmark, FaSmile } from 'react-icons/fa';
 
@@ -17,9 +18,15 @@ type Props = {};
 const Navbar: React.FC<Props> = props => {
   const ctx = useContext(RecipeContext);
 
+  const router = useRouter();
+
   const initialValues: MyFormValues = { recipe: '' };
 
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const reloadApp = () => {
+    router.push('/');
+  };
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -28,18 +35,14 @@ const Navbar: React.FC<Props> = props => {
 
   return (
     <div className="header">
-      <Link href="/">
-        <a href="/">
-          <Image
-            src={images.logo}
-            alt="logo"
-            className="header__logo"
-            width={112.59}
-            height={36.8}
-            onClick={() => ctx.reloadApp()}
-          />
-        </a>
-      </Link>
+      <Image
+        src={images.logo}
+        alt="logo"
+        className="header__logo"
+        width={112.59}
+        height={36.8}
+        onClick={reloadApp}
+      />
 
       <Formik
         initialValues={initialValues}
