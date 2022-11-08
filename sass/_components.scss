@@ -19,7 +19,7 @@
     &,
     &:link,
     &:visited {
-      @apply btns text-lg lg:text-[1.4rem] font-semibold py-3 lg:py-5 px-5 lg:px-9 no-underline;
+      @apply btns text-base lg:text-[1.4rem] font-semibold py-3 px-5 no-underline;
 
       svg {
         @apply h-4 w-4 lg:h-7 lg:w-7 fill-current ml-2;
