@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
 
 import Recipe from '../model/Recipe';
 import Query from '../model/Query';
@@ -81,6 +82,8 @@ const ContextProvider: React.FC<Props> = props => {
   const [search, setSearch] = useState<Search>(initialSearch); // search data
   const [modalError, setModalError] = useState<Error | null>(null);
 
+  const router = useRouter();
+
   // prettier-ignore
   // destructuring custom Hook
   const { isLoading: queryLoading, error: queryError, fetchData } = useSearchQuery();
@@ -106,6 +109,8 @@ const ContextProvider: React.FC<Props> = props => {
   const searchQuery = async (query: string) => {
     setSearch(initialSearch);
     setRecipe(undefined);
+
+    if (router.pathname !== '/') router.replace('/');
 
     try {
       const data = await fetchData(`${API_URL}?search=${query}&key=${KEY}`);
@@ -142,6 +147,8 @@ const ContextProvider: React.FC<Props> = props => {
 
   // function for loading a recipe to view
   const loadRecipe = async (id: string) => {
+    if (router.pathname !== '/') router.replace('/');
+
     try {
       const data = await fetchData(`${API_URL}${id}?key=${KEY}`);
 
